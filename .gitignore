@@ -8,12 +8,12 @@ credentials/
 secrets/
 
 # Runtime data
-data/
-config/
-logs/
-backups/
-downloads/
-media/
+/data/
+/config/
+/logs/
+/backups/
+/downloads/
+/media/
 
 # Docker overrides
 compose.override.yml
