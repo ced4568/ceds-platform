@@ -1,0 +1,3 @@
+dispatcharr.cedshomelab.com {
+	reverse_proxy dispatcharr:9191
+}
