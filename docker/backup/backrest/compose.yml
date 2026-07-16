@@ -1,0 +1,41 @@
+services:
+  backrest:
+    image: ghcr.io/garethgeorge/backrest:latest
+    container_name: backrest
+    hostname: blockbuster-01
+    restart: unless-stopped
+
+    environment:
+      BACKREST_DATA: /data
+      BACKREST_CONFIG: /config/config.json
+      XDG_CACHE_HOME: /cache
+      TMPDIR: /tmp
+      TZ: America/Chicago
+
+    volumes:
+      - ./data:/data
+      - ./config:/config
+      - ./cache:/cache
+      - ./tmp:/tmp
+      - ./rclone:/root/.config/rclone
+      - ./restore:/restore
+
+      # Dedicated Storage Box SSH credentials
+      - ./ssh/id_ed25519:/root/.ssh/ceds-backups:ro
+      - ./ssh/config:/root/.ssh/config:ro
+      - ./ssh/known_hosts:/root/.ssh/known_hosts:ro
+      
+      # Blockbuster data to protect
+      - /opt/stacks:/userdata/stacks:ro
+      - /etc:/userdata/etc:ro
+      - /home/ced4568:/userdata/home:ro
+
+    ports:
+      - "9898:9898"
+
+    networks:
+      - proxy
+
+networks:
+  proxy:
+    external: true

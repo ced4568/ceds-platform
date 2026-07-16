@@ -1,0 +1,30 @@
+services:
+  jellyfin:
+    image: jellyfin/jellyfin:latest
+    container_name: jellyfin
+    restart: unless-stopped
+
+    user: "0:0"
+
+    devices:
+      - /dev/dri:/dev/dri
+
+    group_add:
+      - "44"
+      - "991"
+
+    volumes:
+      - ./config:/config
+      - ./cache:/cache
+      - /mnt/media:/Media:ro
+      
+
+    ports:
+      - "8096:8096"
+
+    networks:
+      - proxy
+
+networks:
+  proxy:
+    external: true

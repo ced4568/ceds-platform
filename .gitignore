@@ -24,3 +24,17 @@ docker-compose.override.yml
 .idea/
 .DS_Store
 *.swp
+
+# Application runtime and secrets
+**/.env
+**/config/
+**/data/
+**/cache/
+**/logs/
+**/ssh/
+**/restore/
+**/tmp/
+**/*.db
+**/*.sqlite
+**/*.sqlite-*
+**/jwt-secret

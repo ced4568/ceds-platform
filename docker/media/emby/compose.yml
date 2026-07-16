@@ -1,0 +1,24 @@
+services:
+  emby:
+    image: emby/embyserver:latest
+    container_name: emby
+    restart: unless-stopped
+    environment:
+      UID: "1000"
+      GID: "1000"
+      GIDLIST: "44,991"
+      TZ: America/Chicago
+    volumes:
+      - ./config:/config
+      - /mnt/media:/Media:ro
+    devices:
+      - /dev/dri:/dev/dri
+    ports:
+      - "8097:8096"
+      - "8920:8920"
+    networks:
+      - proxy
+
+networks:
+  proxy:
+    external: true

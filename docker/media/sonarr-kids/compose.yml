@@ -1,0 +1,21 @@
+services:
+  sonarr-kids:
+    image: lscr.io/linuxserver/sonarr:latest
+    container_name: sonarr-kids
+    restart: unless-stopped
+    environment:
+      PUID: "1000"
+      PGID: "1000"
+      TZ: America/Chicago
+    volumes:
+      - ./config:/config
+      - "/mnt/media/Kids Tv Shows:/Media" 
+      - /mnt/media/ActiveDL:/Media/ActiveDL
+    ports:
+      - "8990:8989"
+    networks:
+      - proxy
+
+networks:
+  proxy:
+    external: true

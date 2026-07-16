@@ -1,0 +1,24 @@
+services:
+  bazarr:
+    image: lscr.io/linuxserver/bazarr:latest
+    container_name: bazarr
+    restart: unless-stopped
+
+    environment:
+      PUID: "1000"
+      PGID: "1000"
+      TZ: America/Chicago
+
+    volumes:
+      - ./config:/config
+      - /mnt/media:/Media
+
+    ports:
+      - "6767:6767"
+
+    networks:
+      - proxy
+
+networks:
+  proxy:
+    external: true

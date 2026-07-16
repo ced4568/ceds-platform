@@ -1,0 +1,38 @@
+services:
+  tdarr:
+    image: ghcr.io/haveagitgat/tdarr:latest
+    container_name: tdarr
+    restart: unless-stopped
+
+    environment:
+      TZ: America/Chicago
+      PUID: "1000"
+      PGID: "1000"
+      UMASK_SET: "002"
+      serverIP: "0.0.0.0"
+      serverPort: "8266"
+      webUIPort: "8265"
+      internalNode: "true"
+      inContainer: "true"
+      nodeName: "Blockbuster"
+
+    volumes:
+      - ./server:/app/server
+      - ./configs:/app/configs
+      - ./logs:/app/logs
+      - ./transcode_cache:/temp
+      - /mnt/media:/Media
+
+    devices:
+      - /dev/dri:/dev/dri
+
+    ports:
+      - "8265:8265"
+      - "8266:8266"
+
+    networks:
+      - proxy
+
+networks:
+  proxy:
+    external: true

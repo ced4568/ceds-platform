@@ -1,0 +1,24 @@
+services:
+  sabnzbd:
+    image: lscr.io/linuxserver/sabnzbd:latest
+    container_name: sabnzbd
+    restart: unless-stopped
+
+    environment:
+      PUID: "1000"
+      PGID: "1000"
+      TZ: America/Chicago
+
+    volumes:
+      - ./config:/config
+      - /mnt/media:/Media
+
+    ports:
+      - "8082:30055"
+
+    networks:
+      - proxy
+
+networks:
+  proxy:
+    external: true
